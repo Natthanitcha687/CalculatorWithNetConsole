@@ -1,75 +1,164 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ConsoleApp1
+namespace AdvancedCalculatorApp
 {
-    class Program
+    public enum Operation
     {
-        static void Main()
-        {
-            start:
-            arithmeticclass obj = new arithmeticclass();
-            Console.Write("Please Provide 1st Number : ");
-            try
-            {
-                obj.a = Convert.ToInt32(Console.ReadLine());
-            }
-            catch (Exception exp)
-            {
-                //This have to work completly.
-                Console.WriteLine(exp.Message.ToString());
-                goto start;
-            }
-            Console.Write("Please Provide 2nd Number : ");
-            obj.b = Convert.ToInt32(Console.ReadLine());
-            Console.Write("1 : For ADD\n2 : For Subtract\n3 : FOr Divide\n4 : For multiply\nPlease Provide OPtion to proceed : ");
-            String inputs = Console.ReadLine();
-            if (inputs == "1")
-            {
-                Console.WriteLine("Your Ans Is : " + obj.GetSum());
-            }
-            else if (inputs == "2")
-            {
-                Console.WriteLine("Your Ans Is : " + obj.GetSubtract());
-            }
-            else if (inputs == "3")
-            {
-                Console.WriteLine("Your Ans Is : " + obj.GetDivide());
-            }
-            else if (inputs == "4")
-            {
-                Console.WriteLine("Your Ans Is : " + obj.GetMultilply());
-            }
-            else
-            {
-                Console.Write("You Eneterd invalid OPtion. Press ANy Key to close");
-            }
-            Console.ReadLine();
-        }
+        Add = 1,
+        Subtract,
+        Divide,
+        Multiply,
+        Power,
+        SquareRoot,
+        AbsoluteValue,
+        Exit
     }
 
-    public class arithmeticclass
+    public class ArithmeticClass
     {
-        public int a, b;
+        private int a;
+        private int b;
+
+        public int A
+        {
+            get { return a; }
+            set { a = value; }
+        }
+
+        public int B
+        {
+            get { return b; }
+            set { b = value; }
+        }
 
         public int GetSum()
         {
-            return a + b;
+            return A + B;
         }
+
         public int GetSubtract()
         {
-            return a - b;
+            return A - B;
         }
-        public int GetDivide()
+
+        public double GetDivide()
         {
-            return a / b;
+            if (B == 0)
+            {
+                throw new DivideByZeroException("Cannot divide by zero.");
+            }
+            return (double)A / B;
         }
-        public int GetMultilply()
+
+        public int GetMultiply()
         {
-            return a * b;
+            return A * B;
+        }
+
+        public double GetPower()
+        {
+            return Math.Pow(A, B);
+        }
+    }
+
+    public class AdvancedCalculator : ArithmeticClass
+    {
+        public double GetSquareRoot()
+        {
+            return Math.Sqrt(A);
+        }
+
+        public int GetAbsoluteValue()
+        {
+            return Math.Abs(A);
+        }
+    }
+
+    public class UserInterface
+    {
+        public AdvancedCalculator Calculator { get; set; }
+
+        public UserInterface(AdvancedCalculator calculator)
+        {
+            Calculator = calculator;
+        }
+
+        public void Run()
+        {
+            bool running = true;
+            while (running)
+            {
+                try
+                {
+                    GetInput();
+                    Operation operation = GetOperation();
+                    PerformOperation(operation);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                Console.WriteLine("Press Enter to continue...");
+                Console.ReadLine();
+            }
+        }
+
+        private void GetInput()
+        {
+            Console.Write("Please Provide 1st Number: ");
+            Calculator.A = Convert.ToInt32(Console.ReadLine());
+
+            Console.Write("Please Provide 2nd Number: ");
+            Calculator.B = Convert.ToInt32(Console.ReadLine());
+        }
+
+        private Operation GetOperation()
+        {
+            Console.Write("1: Add\n2: Subtract\n3: Divide\n4: Multiply\n5: Power\n6: Square Root\n7: Absolute Value\n8: Exit\nPlease Provide Option to proceed: ");
+            return (Operation)Convert.ToInt32(Console.ReadLine());
+        }
+
+        private void PerformOperation(Operation operation)
+        {
+            switch (operation)
+            {
+                case Operation.Add:
+                    Console.WriteLine("Your Ans Is: " + Calculator.GetSum());
+                    break;
+                case Operation.Subtract:
+                    Console.WriteLine("Your Ans Is: " + Calculator.GetSubtract());
+                    break;
+                case Operation.Divide:
+                    Console.WriteLine("Your Ans Is: " + Calculator.GetDivide());
+                    break;
+                case Operation.Multiply:
+                    Console.WriteLine("Your Ans Is: " + Calculator.GetMultiply());
+                    break;
+                case Operation.Power:
+                    Console.WriteLine("Your Ans Is: " + Calculator.GetPower());
+                    break;
+                case Operation.SquareRoot:
+                    Console.WriteLine("Your Ans Is: " + Calculator.GetSquareRoot());
+                    break;
+                case Operation.AbsoluteValue:
+                    Console.WriteLine("Your Ans Is: " + Calculator.GetAbsoluteValue());
+                    break;
+                case Operation.Exit:
+                    Environment.Exit(0);
+                    break;
+                default:
+                    Console.WriteLine("Invalid option.");
+                    break;
+            }
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            AdvancedCalculator calculator = new AdvancedCalculator();
+            UserInterface ui = new UserInterface(calculator);
+            ui.Run();
         }
     }
 }

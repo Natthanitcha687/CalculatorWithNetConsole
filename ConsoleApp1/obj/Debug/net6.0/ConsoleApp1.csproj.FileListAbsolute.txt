@@ -1,0 +1,16 @@
+D:\โฟลเดอร์ใหม่\CalculatorWithNetConsole\ConsoleApp1\bin\Debug\net6.0\ConsoleApp1.exe
+D:\โฟลเดอร์ใหม่\CalculatorWithNetConsole\ConsoleApp1\bin\Debug\net6.0\ConsoleApp1.dll.config
+D:\โฟลเดอร์ใหม่\CalculatorWithNetConsole\ConsoleApp1\bin\Debug\net6.0\ConsoleApp1.deps.json
+D:\โฟลเดอร์ใหม่\CalculatorWithNetConsole\ConsoleApp1\bin\Debug\net6.0\ConsoleApp1.runtimeconfig.json
+D:\โฟลเดอร์ใหม่\CalculatorWithNetConsole\ConsoleApp1\bin\Debug\net6.0\ConsoleApp1.dll
+D:\โฟลเดอร์ใหม่\CalculatorWithNetConsole\ConsoleApp1\bin\Debug\net6.0\ConsoleApp1.pdb
+D:\โฟลเดอร์ใหม่\CalculatorWithNetConsole\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.csproj.SuggestedBindingRedirects.cache
+D:\โฟลเดอร์ใหม่\CalculatorWithNetConsole\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.dll.config
+D:\โฟลเดอร์ใหม่\CalculatorWithNetConsole\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.GeneratedMSBuildEditorConfig.editorconfig
+D:\โฟลเดอร์ใหม่\CalculatorWithNetConsole\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.csproj.CoreCompileInputs.cache
+D:\โฟลเดอร์ใหม่\CalculatorWithNetConsole\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.sourcelink.json
+D:\โฟลเดอร์ใหม่\CalculatorWithNetConsole\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.dll
+D:\โฟลเดอร์ใหม่\CalculatorWithNetConsole\ConsoleApp1\obj\Debug\net6.0\refint\ConsoleApp1.dll
+D:\โฟลเดอร์ใหม่\CalculatorWithNetConsole\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.pdb
+D:\โฟลเดอร์ใหม่\CalculatorWithNetConsole\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.genruntimeconfig.cache
+D:\โฟลเดอร์ใหม่\CalculatorWithNetConsole\ConsoleApp1\obj\Debug\net6.0\ref\ConsoleApp1.dll
