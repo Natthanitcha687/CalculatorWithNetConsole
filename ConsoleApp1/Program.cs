@@ -1,41 +1,110 @@
 ﻿using System;
+
 namespace AdvancedCalculatorApp
 {
-    public enum Operation
+    public enum CalculatorOperation
     {
         Add = 1,
         Subtract,
         Divide,
         Multiply,
         Power,
-        SquareRoot,
-        AbsoluteValue,
         Exit
+    }
+
+    public enum ShapeType
+    {
+        Triangle = 1,
+        Rectangle,
+        Circle,
+        Back
+    }
+
+    public interface IShape
+    {
+        double Area { get; }
+    }
+
+    public class Triangle : IShape
+    {
+        public double Base { get; set; }
+        public double Height { get; set; }
+
+        public Triangle(double b, double h)
+        {
+            Base = b;
+            Height = h;
+        }
+
+        public double Area => 0.5 * Base * Height;
+
+        public double GetPerimeter()
+        {
+            // Assuming it's not an equilateral triangle, we'd need more side information
+            Console.WriteLine("Cannot calculate triangle perimeter without all side lengths.");
+            return -1; // Indicate failure
+        }
+    }
+
+    public class Rectangle : IShape
+    {
+        public double Width { get; set; }
+        public double Height { get; set; }
+
+        public Rectangle(double w, double h)
+        {
+            Width = w;
+            Height = h;
+        }
+
+        public double Area => Width * Height;
+
+        public double GetPerimeter()
+        {
+            return 2 * (Width + Height);
+        }
+    }
+
+    public class Circle : IShape
+    {
+        public double Radius { get; set; }
+
+        public Circle(double r)
+        {
+            Radius = r;
+        }
+
+        public double Area => Math.PI * Radius * Radius;
+
+        public double GetCircumference()
+        {
+            return 2 * Math.PI * Radius;
+        }
     }
 
     public class ArithmeticClass
     {
-        private int a;
-        private int b;
+        private double a;
+        private double b;
 
-        public int A
+        public double A
         {
             get { return a; }
             set { a = value; }
         }
 
-        public int B
+        public double B
         {
             get { return b; }
             set { b = value; }
         }
 
-        public int GetSum()
+        public double GetSum()
         {
             return A + B;
         }
 
-        public int GetSubtract()
+        public double GetSubtract()
         {
             return A - B;
         }
@@ -46,10 +115,10 @@ namespace AdvancedCalculatorApp
             {
                 throw new DivideByZeroException("Cannot divide by zero.");
             }
-            return (double)A / B;
+            return A / B;
         }
 
-        public int GetMultiply()
+        public double GetMultiply()
         {
             return A * B;
         }
@@ -62,24 +131,122 @@ namespace AdvancedCalculatorApp
 
     public class AdvancedCalculator : ArithmeticClass
     {
-        public double GetSquareRoot()
+        // No longer contains SquareRoot and AbsoluteValue
+    }
+
+    public class ShapeCalculator
+    {
+        public void Run()
         {
-            return Math.Sqrt(A);
+            bool running = true;
+            while (running)
+            {
+                Console.WriteLine("\nShape Calculator Menu:");
+                Console.WriteLine("1: Triangle");
+                Console.WriteLine("2: Rectangle");
+                Console.WriteLine("3: Circle");
+                Console.WriteLine("4: Back to Main Menu");
+                Console.Write("Choose a shape: ");
+
+                if (int.TryParse(Console.ReadLine(), out int choice))
+                {
+                    switch ((ShapeType)choice)
+                    {
+                        case ShapeType.Triangle:
+                            CalculateTriangle();
+                            break;
+                        case ShapeType.Rectangle:
+                            CalculateRectangle();
+                            break;
+                        case ShapeType.Circle:
+                            CalculateCircle();
+                            break;
+                        case ShapeType.Back:
+                            running = false;
+                            break;
+                        default:
+                            Console.WriteLine("Invalid choice. Please try again.");
+                            break;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a number.");
+                }
+                if (running)
+                {
+                    Console.WriteLine("Press Enter to continue with shape calculations...");
+                    Console.ReadLine();
+                }
+            }
         }
 
-        public int GetAbsoluteValue()
+        private void CalculateTriangle()
         {
-            return Math.Abs(A);
+            Console.Write("Enter the base of the triangle: ");
+            if (!double.TryParse(Console.ReadLine(), out double baseValue))
+            {
+                Console.WriteLine("Invalid input for base.");
+                return;
+            }
+
+            Console.Write("Enter the height of the triangle: ");
+            if (!double.TryParse(Console.ReadLine(), out double heightValue))
+            {
+                Console.WriteLine("Invalid input for height.");
+                return;
+            }
+
+            Triangle triangle = new Triangle(baseValue, heightValue);
+            Console.WriteLine($"Triangle Area: {triangle.Area}");
+            triangle.GetPerimeter(); // Note: Perimeter calculation is limited
+        }
+
+        private void CalculateRectangle()
+        {
+            Console.Write("Enter the width of the rectangle: ");
+            if (!double.TryParse(Console.ReadLine(), out double widthValue))
+            {
+                Console.WriteLine("Invalid input for width.");
+                return;
+            }
+
+            Console.Write("Enter the height of the rectangle: ");
+            if (!double.TryParse(Console.ReadLine(), out double heightValue))
+            {
+                Console.WriteLine("Invalid input for height.");
+                return;
+            }
+
+            Rectangle rectangle = new Rectangle(widthValue, heightValue);
+            Console.WriteLine($"Rectangle Area: {rectangle.Area}");
+            Console.WriteLine($"Rectangle Perimeter: {rectangle.GetPerimeter()}");
+        }
+
+        private void CalculateCircle()
+        {
+            Console.Write("Enter the radius of the circle: ");
+            if (!double.TryParse(Console.ReadLine(), out double radiusValue))
+            {
+                Console.WriteLine("Invalid input for radius.");
+                return;
+            }
+
+            Circle circle = new Circle(radiusValue);
+            Console.WriteLine($"Circle Area: {circle.Area}");
+            Console.WriteLine($"Circle Circumference: {circle.GetCircumference()}");
         }
     }
 
     public class UserInterface
     {
         public AdvancedCalculator Calculator { get; set; }
+        public ShapeCalculator ShapeCalculator { get; set; }
 
-        public UserInterface(AdvancedCalculator calculator)
+        public UserInterface()
         {
-            Calculator = calculator;
+            Calculator = new AdvancedCalculator();
+            ShapeCalculator = new ShapeCalculator();
         }
 
         public void Run()
@@ -87,66 +254,131 @@ namespace AdvancedCalculatorApp
             bool running = true;
             while (running)
             {
+                Console.WriteLine("\nMain Menu:");
+                Console.WriteLine("1: Calculator");
+                Console.WriteLine("2: Shape Calculator");
+                Console.WriteLine("3: Exit");
+                Console.Write("Choose an option: ");
+
+                if (int.TryParse(Console.ReadLine(), out int mainMenuChoice))
+                {
+                    switch (mainMenuChoice)
+                    {
+                        case 1:
+                            RunCalculator();
+                            break;
+                        case 2:
+                            ShapeCalculator.Run();
+                            break;
+                        case 3:
+                            running = false;
+                            break;
+                        default:
+                            Console.WriteLine("Invalid option. Please try again.");
+                            break;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a number.");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("Exiting application.");
+        }
+
+        private void RunCalculator()
+        {
+            bool running = true;
+            while (running)
+            {
                 try
                 {
-                    GetInput();
-                    Operation operation = GetOperation();
-                    PerformOperation(operation);
+                    GetCalculatorInput();
+                    CalculatorOperation operation = GetCalculatorOperation();
+                    PerformCalculatorOperation(operation);
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
-                Console.WriteLine("Press Enter to continue...");
+                Console.WriteLine("Press Enter to continue with calculator...");
                 Console.ReadLine();
             }
         }
 
-        private void GetInput()
+        private void GetCalculatorInput()
         {
             Console.Write("Please Provide 1st Number: ");
-            Calculator.A = Convert.ToInt32(Console.ReadLine());
+            if (!double.TryParse(Console.ReadLine(), out double num1))
+            {
+                Console.WriteLine("Invalid input for the first number.");
+                throw new FormatException();
+            }
+            Calculator.A = num1;
 
             Console.Write("Please Provide 2nd Number: ");
-            Calculator.B = Convert.ToInt32(Console.ReadLine());
+            if (!double.TryParse(Console.ReadLine(), out double num2))
+            {
+                Console.WriteLine("Invalid input for the second number.");
+                throw new FormatException();
+            }
+            Calculator.B = num2;
         }
 
-        private Operation GetOperation()
+        private CalculatorOperation GetCalculatorOperation()
         {
-            Console.Write("1: Add\n2: Subtract\n3: Divide\n4: Multiply\n5: Power\n6: Square Root\n7: Absolute Value\n8: Exit\nPlease Provide Option to proceed: ");
-            return (Operation)Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("\nCalculator Operations:");
+            Console.WriteLine($"{(int)CalculatorOperation.Add}: Add");
+            Console.WriteLine($"{(int)CalculatorOperation.Subtract}: Subtract");
+            Console.WriteLine($"{(int)CalculatorOperation.Divide}: Divide");
+            Console.WriteLine($"{(int)CalculatorOperation.Multiply}: Multiply");
+            Console.WriteLine($"{(int)CalculatorOperation.Power}: Power");
+            Console.WriteLine($"{(int)CalculatorOperation.Exit}: Exit Calculator");
+            Console.Write("Please Provide Option to proceed: ");
+
+            if (int.TryParse(Console.ReadLine(), out int choice))
+            {
+                if (Enum.IsDefined(typeof(CalculatorOperation), choice))
+                {
+                    return (CalculatorOperation)choice;
+                }
+            }
+            Console.WriteLine("Invalid option.");
+            return CalculatorOperation.Exit; // Default to exit on invalid input
         }
 
-        private void PerformOperation(Operation operation)
+        private void PerformCalculatorOperation(CalculatorOperation operation)
         {
             switch (operation)
             {
-                case Operation.Add:
+                case CalculatorOperation.Add:
                     Console.WriteLine("Your Ans Is: " + Calculator.GetSum());
                     break;
-                case Operation.Subtract:
+                case CalculatorOperation.Subtract:
                     Console.WriteLine("Your Ans Is: " + Calculator.GetSubtract());
                     break;
-                case Operation.Divide:
-                    Console.WriteLine("Your Ans Is: " + Calculator.GetDivide());
+                case CalculatorOperation.Divide:
+                    try
+                    {
+                        Console.WriteLine("Your Ans Is: " + Calculator.GetDivide());
+                    }
+                    catch (DivideByZeroException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
                     break;
-                case Operation.Multiply:
+                case CalculatorOperation.Multiply:
                     Console.WriteLine("Your Ans Is: " + Calculator.GetMultiply());
                     break;
-                case Operation.Power:
+                case CalculatorOperation.Power:
                     Console.WriteLine("Your Ans Is: " + Calculator.GetPower());
                     break;
-                case Operation.SquareRoot:
-                    Console.WriteLine("Your Ans Is: " + Calculator.GetSquareRoot());
-                    break;
-                case Operation.AbsoluteValue:
-                    Console.WriteLine("Your Ans Is: " + Calculator.GetAbsoluteValue());
-                    break;
-                case Operation.Exit:
-                    Environment.Exit(0);
+                case CalculatorOperation.Exit:
+                    Console.WriteLine("Returning to Main Menu.");
                     break;
                 default:
-                    Console.WriteLine("Invalid option.");
+                    Console.WriteLine("Invalid operation.");
                     break;
             }
         }
@@ -156,8 +388,7 @@ namespace AdvancedCalculatorApp
     {
         static void Main(string[] args)
         {
-            AdvancedCalculator calculator = new AdvancedCalculator();
-            UserInterface ui = new UserInterface(calculator);
+            UserInterface ui = new UserInterface();
             ui.Run();
         }
     }

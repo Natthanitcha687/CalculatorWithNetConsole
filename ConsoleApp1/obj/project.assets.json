@@ -8,23 +8,23 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\COMPUTER\\.nuget\\packages\\": {},
+    "C:\\Users\\Ghimhong\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\โฟลเดอร์ใหม่\\CalculatorWithNetConsole\\ConsoleApp1\\ConsoleApp1.csproj",
+      "projectUniqueName": "D:\\natthanitcha_work\\PROJECT\\CalculatorWithNetConsole\\ConsoleApp1\\ConsoleApp1.csproj",
       "projectName": "ConsoleApp1",
-      "projectPath": "D:\\โฟลเดอร์ใหม่\\CalculatorWithNetConsole\\ConsoleApp1\\ConsoleApp1.csproj",
-      "packagesPath": "C:\\Users\\COMPUTER\\.nuget\\packages\\",
-      "outputPath": "D:\\โฟลเดอร์ใหม่\\CalculatorWithNetConsole\\ConsoleApp1\\obj\\",
+      "projectPath": "D:\\natthanitcha_work\\PROJECT\\CalculatorWithNetConsole\\ConsoleApp1\\ConsoleApp1.csproj",
+      "packagesPath": "C:\\Users\\Ghimhong\\.nuget\\packages\\",
+      "outputPath": "D:\\natthanitcha_work\\PROJECT\\CalculatorWithNetConsole\\ConsoleApp1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\COMPUTER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Ghimhong\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -91,7 +91,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }
